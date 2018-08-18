@@ -7,10 +7,12 @@ public class Percolation {
     private WeightedQuickUnionUF wqu;
 
     public Percolation() {
+
         wqu = new WeightedQuickUnionUF(10);
     }
 
     public boolean isOpen(int i, int i1) {
+
         return false;
     }
 
