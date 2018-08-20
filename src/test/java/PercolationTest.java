@@ -13,7 +13,7 @@ public class PercolationTest {
     }
 
     @Test
-    public void testOpenSite() {
+    public void testOpenClosedSite() {
         assertEquals(false, percolation.isOpen(1,1) );
         percolation.open(1,1);
         assertEquals(true, percolation.isOpen(1,1) );
@@ -23,6 +23,17 @@ public class PercolationTest {
     public void testNumberOfOpenSites() {
         assertEquals(0, percolation.numberOfOpenSites() );
         percolation.open(1,1);
+        assertEquals(1, percolation.numberOfOpenSites() );
+    }
+
+    @Test
+    public void testOpenOpenedSite() {
+        assertEquals(0, percolation.numberOfOpenSites() );
+        percolation.open(1,1);
+        assertEquals(true, percolation.isOpen(1,1) );
+        assertEquals(1, percolation.numberOfOpenSites() );
+        percolation.open(1,1);
+        assertEquals(true, percolation.isOpen(1,1) );
         assertEquals(1, percolation.numberOfOpenSites() );
     }
 

@@ -33,8 +33,18 @@ public class Percolation {
     public void open(int rowIndex, int colIndex) {
         checkBoundaries(rowIndex, colIndex);
 
+        if(isOpen(rowIndex, colIndex)){
+            return;
+        }
+
         siteStates[rowIndex*N + colIndex] = true;
         countOpenSites++;
+
+        connectToOpenedNeighbors(rowIndex, colIndex);
+    }
+
+    private void connectToOpenedNeighbors(int rowIndex, int colIndex) {
+
     }
 
     public boolean isOpen(int rowIndex, int colIndex) {
