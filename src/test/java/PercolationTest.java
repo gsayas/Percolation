@@ -9,7 +9,7 @@ public class PercolationTest {
 
     @Before
     public void setUp() throws Exception {
-        percolation = new Percolation();
+        percolation = new Percolation(3);
     }
 
     @Test
@@ -17,5 +17,23 @@ public class PercolationTest {
         assertEquals(false, percolation.isOpen(1,1) );
         percolation.open(1,1);
         assertEquals(true, percolation.isOpen(1,1) );
+    }
+
+    @Test
+    public void testNumberOfOpenSites() {
+        assertEquals(0, percolation.numberOfOpenSites() );
+        percolation.open(1,1);
+        assertEquals(1, percolation.numberOfOpenSites() );
+    }
+
+    @Test
+    public void testIsFull() {
+        assertEquals(false, percolation.isFull(1,1) );
+        percolation.open(1,1);
+        assertEquals(false, percolation.isFull(1,1) );
+
+        assertEquals(false, percolation.isFull(0,1) );
+        percolation.open(0,1);
+        assertEquals(true, percolation.isFull(0,1) );
     }
 }
