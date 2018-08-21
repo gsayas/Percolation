@@ -104,7 +104,7 @@ public class Percolation {
 
     private void checkBoundaries(int rowIndex, int colIndex){
         if( !siteExists(rowIndex, colIndex) ) {
-            throw new IndexOutOfBoundsException();
+            throw new IllegalArgumentException();
         }
     }
 
