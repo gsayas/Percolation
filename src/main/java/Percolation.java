@@ -1,5 +1,9 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Percolation {
 
     private WeightedQuickUnionUF wqu;
@@ -116,4 +120,36 @@ public class Percolation {
         }
     }
 
+    public static void main(String[] args){
+
+        File file = new File("/home/giovanny/IdeaProjects/Percolation/percolation-testing/input2.txt");
+        Percolation percolation;
+        int inputN;
+        int a, b;
+
+        try {
+            Scanner in = new Scanner(file);
+
+            inputN = in.nextInt();
+            System.out.println("n: " + inputN);
+            percolation = new Percolation(inputN);
+
+            while(in.hasNext()) {
+                a = in.nextInt();
+                System.out.println("a " + a);
+
+                b = in.nextInt();
+                System.out.println("b " + b);
+
+                percolation.open(a, b);
+            }
+
+            System.out.println("percolates? " + percolation.percolates());
+
+        }catch (FileNotFoundException ex){
+
+        }
+
+
+    }
 }
