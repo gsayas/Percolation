@@ -44,7 +44,42 @@ public class Percolation {
     }
 
     private void connectToOpenedNeighbors(int rowIndex, int colIndex) {
+        connectToTopSite(rowIndex, colIndex);
+        connectToLeftSite(rowIndex, colIndex);
+        connectToRightSite(rowIndex, colIndex);
+        connectToBottomSite(rowIndex, colIndex);
+    }
 
+    private void connectToTopSite(int rowIndex, int colIndex) {
+        if(rowIndex == 0){
+            wqu.union(rowIndex*N + colIndex, virtualTopSiteIndex);
+        }else if( isOpen(rowIndex-1, colIndex) ){
+            wqu.union(rowIndex*N + colIndex, (rowIndex-1)*N + colIndex);
+        }
+    }
+
+    private void connectToLeftSite(int rowIndex, int colIndex) {
+        if( siteExists(rowIndex, colIndex - 1) && isOpen(rowIndex, colIndex - 1) ){
+            wqu.union(rowIndex*N + colIndex, rowIndex*N + colIndex - 1);
+        }
+    }
+
+    private void connectToRightSite(int rowIndex, int colIndex) {
+        if( siteExists(rowIndex, colIndex + 1) && isOpen(rowIndex, colIndex + 1) ){
+            wqu.union(rowIndex*N + colIndex, rowIndex*N + colIndex + 1);
+        }
+    }
+
+    private void connectToBottomSite(int rowIndex, int colIndex) {
+        if(rowIndex == N-1){
+            wqu.union(rowIndex*N + colIndex, virtualBottomSiteIndex);
+        }else if( isOpen(rowIndex+1, colIndex) ){
+            wqu.union(rowIndex*N + colIndex, (rowIndex+1)*N + colIndex);
+        }
+    }
+
+    private boolean siteExists(int rowIndex, int colIndex){
+        return rowIndex >= 0 && colIndex >= 0 && rowIndex < N && colIndex < N;
     }
 
     public boolean isOpen(int rowIndex, int colIndex) {
@@ -56,7 +91,11 @@ public class Percolation {
     public boolean isFull(int rowIndex, int colIndex) {
         checkBoundaries(rowIndex, colIndex);
 
-        return false;
+        return wqu.connected(rowIndex*N + colIndex, virtualTopSiteIndex);
+    }
+
+    public boolean percolates() {
+        return wqu.connected(virtualTopSiteIndex, virtualBottomSiteIndex);
     }
 
     public int numberOfOpenSites() {
@@ -64,7 +103,7 @@ public class Percolation {
     }
 
     private void checkBoundaries(int rowIndex, int colIndex){
-        if(rowIndex < 0 || colIndex < 0 || rowIndex >= N || colIndex >= N) {
+        if( !siteExists(rowIndex, colIndex) ) {
             throw new IndexOutOfBoundsException();
         }
     }

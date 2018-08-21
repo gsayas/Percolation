@@ -47,4 +47,15 @@ public class PercolationTest {
         percolation.open(0,1);
         assertEquals(true, percolation.isFull(0,1) );
     }
+
+    @Test
+    public void testPercolates() {
+        assertEquals(false, percolation.percolates() );
+        percolation.open(0,1);
+        assertEquals(false, percolation.percolates() );
+        percolation.open(1,1);
+        assertEquals(false, percolation.percolates() );
+        percolation.open(2,1);
+        assertEquals(true, percolation.percolates() );
+    }
 }
