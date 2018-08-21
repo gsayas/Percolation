@@ -31,9 +31,12 @@ public class Percolation {
     }
 
     public void open(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex, colIndex);
+        checkBoundaries(rowIndex-1, colIndex-1);
+        doOpen(rowIndex-1, colIndex-1);
+    }
 
-        if(isOpen(rowIndex, colIndex)){
+    private void doOpen(int rowIndex, int colIndex){
+        if(checkOpen(rowIndex, colIndex)){
             return;
         }
 
@@ -53,19 +56,19 @@ public class Percolation {
     private void connectToTopSite(int rowIndex, int colIndex) {
         if(rowIndex == 0){
             wqu.union(rowIndex*N + colIndex, virtualTopSiteIndex);
-        }else if( isOpen(rowIndex-1, colIndex) ){
+        }else if( checkOpen(rowIndex-1, colIndex) ){
             wqu.union(rowIndex*N + colIndex, (rowIndex-1)*N + colIndex);
         }
     }
 
     private void connectToLeftSite(int rowIndex, int colIndex) {
-        if( siteExists(rowIndex, colIndex - 1) && isOpen(rowIndex, colIndex - 1) ){
+        if( siteExists(rowIndex, colIndex - 1) && checkOpen(rowIndex, colIndex - 1) ){
             wqu.union(rowIndex*N + colIndex, rowIndex*N + colIndex - 1);
         }
     }
 
     private void connectToRightSite(int rowIndex, int colIndex) {
-        if( siteExists(rowIndex, colIndex + 1) && isOpen(rowIndex, colIndex + 1) ){
+        if( siteExists(rowIndex, colIndex + 1) && checkOpen(rowIndex, colIndex + 1) ){
             wqu.union(rowIndex*N + colIndex, rowIndex*N + colIndex + 1);
         }
     }
@@ -73,7 +76,7 @@ public class Percolation {
     private void connectToBottomSite(int rowIndex, int colIndex) {
         if(rowIndex == N-1){
             wqu.union(rowIndex*N + colIndex, virtualBottomSiteIndex);
-        }else if( isOpen(rowIndex+1, colIndex) ){
+        }else if( checkOpen(rowIndex+1, colIndex) ){
             wqu.union(rowIndex*N + colIndex, (rowIndex+1)*N + colIndex);
         }
     }
@@ -83,15 +86,19 @@ public class Percolation {
     }
 
     public boolean isOpen(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex, colIndex);
+        checkBoundaries(rowIndex-1, colIndex-1);
 
+        return checkOpen(rowIndex-1, colIndex-1);
+    }
+
+    private boolean checkOpen(int rowIndex, int colIndex) {
         return siteStates[rowIndex*N + colIndex];
     }
 
     public boolean isFull(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex, colIndex);
+        checkBoundaries(rowIndex-1, colIndex-1);
 
-        return wqu.connected(rowIndex*N + colIndex, virtualTopSiteIndex);
+        return wqu.connected((rowIndex-1)*N + colIndex-1, virtualTopSiteIndex);
     }
 
     public boolean percolates() {

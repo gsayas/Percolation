@@ -29,9 +29,11 @@ public class PercolationTest {
     @Test
     public void testOpenOpenedSite() {
         assertEquals(0, percolation.numberOfOpenSites() );
+
         percolation.open(1,1);
         assertEquals(true, percolation.isOpen(1,1) );
         assertEquals(1, percolation.numberOfOpenSites() );
+
         percolation.open(1,1);
         assertEquals(true, percolation.isOpen(1,1) );
         assertEquals(1, percolation.numberOfOpenSites() );
@@ -41,21 +43,24 @@ public class PercolationTest {
     public void testIsFull() {
         assertEquals(false, percolation.isFull(1,1) );
         percolation.open(1,1);
-        assertEquals(false, percolation.isFull(1,1) );
+        assertEquals(true, percolation.isFull(1,1) );
 
-        assertEquals(false, percolation.isFull(0,1) );
-        percolation.open(0,1);
-        assertEquals(true, percolation.isFull(0,1) );
+        assertEquals(false, percolation.isFull(3,1) );
+        percolation.open(3,1);
+        assertEquals(false, percolation.isFull(3,1) );
     }
 
     @Test
     public void testPercolates() {
         assertEquals(false, percolation.percolates() );
-        percolation.open(0,1);
-        assertEquals(false, percolation.percolates() );
+
         percolation.open(1,1);
         assertEquals(false, percolation.percolates() );
+
         percolation.open(2,1);
+        assertEquals(false, percolation.percolates() );
+
+        percolation.open(3,1);
         assertEquals(true, percolation.percolates() );
     }
 }
