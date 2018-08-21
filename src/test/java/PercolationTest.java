@@ -42,12 +42,16 @@ public class PercolationTest {
     @Test
     public void testIsFull() {
         assertEquals(false, percolation.isFull(1,1) );
+        assertEquals(false, percolation.isOpen(1,1) );
         percolation.open(1,1);
+        assertEquals(true, percolation.isOpen(1,1) );
         assertEquals(true, percolation.isFull(1,1) );
 
         assertEquals(false, percolation.isFull(3,1) );
+        assertEquals(false, percolation.isOpen(3,1) );
         percolation.open(3,1);
         assertEquals(false, percolation.isFull(3,1) );
+        assertEquals(true, percolation.isOpen(1,1) );
     }
 
     @Test
