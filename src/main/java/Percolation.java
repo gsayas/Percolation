@@ -29,11 +29,12 @@ public class Percolation {
     }
 
     public void open(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex-1, colIndex-1);
         doOpen(rowIndex-1, colIndex-1);
     }
 
     private void doOpen(int rowIndex, int colIndex){
+        checkBoundaries(rowIndex, colIndex);
+
         if(checkOpen(rowIndex, colIndex)){
             return;
         }
@@ -84,19 +85,21 @@ public class Percolation {
     }
 
     public boolean isOpen(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex-1, colIndex-1);
-
         return checkOpen(rowIndex-1, colIndex-1);
     }
 
     private boolean checkOpen(int rowIndex, int colIndex) {
+        checkBoundaries(rowIndex, colIndex);
         return siteStates[rowIndex*N + colIndex];
     }
 
     public boolean isFull(int rowIndex, int colIndex) {
-        checkBoundaries(rowIndex-1, colIndex-1);
+        return checkFull(rowIndex-1, colIndex-1);
+    }
 
-        return wqu.connected((rowIndex-1)*N + colIndex-1, virtualTopSiteIndex);
+    private boolean checkFull(int rowIndex, int colIndex) {
+        checkBoundaries(rowIndex, colIndex);
+        return wqu.connected(rowIndex*N + colIndex, virtualTopSiteIndex);
     }
 
     public boolean percolates() {
