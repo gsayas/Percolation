@@ -122,7 +122,7 @@ public class Percolation {
 
     public static void main(String[] args){
 
-        File file = new File("/home/giovanny/IdeaProjects/Percolation/percolation-testing/input2.txt");
+        File file = new File("/home/giovanny/IdeaProjects/Percolation/percolation-testing/input50.txt");
         Percolation percolation;
         int inputN;
         int a, b;
@@ -144,6 +144,7 @@ public class Percolation {
                 percolation.open(a, b);
             }
 
+            System.out.println("open sites: " + percolation.numberOfOpenSites());
             System.out.println("percolates? " + percolation.percolates());
 
         }catch (FileNotFoundException ex){
